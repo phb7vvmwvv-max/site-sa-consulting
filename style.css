@@ -1,0 +1,222 @@
+/* =========================================================
+   STYLE DU SITE — Stephen & Anderson Consulting
+   Astuce : modifie les couleurs ou polices UNIQUEMENT dans
+   le bloc :root ci-dessous, tout le site suivra.
+   ========================================================= */
+
+/* ---------- 1. Variables (couleurs, polices, tailles) ---------- */
+:root {
+  --paper: #F2F4F6;      /* fond principal, gris très clair et froid */
+  --paper-alt: #E6EAEE;  /* fond des sections alternées */
+  --ink: #1C2433;        /* texte et fond sombre, bleu encre */
+  --muted: #5B6573;      /* texte secondaire */
+  --marker: #F2C230;     /* jaune "surligneur", la couleur signature */
+  --sage: #4F6F5C;       /* vert discret pour petits détails */
+
+  --font-title: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-text: "Source Serif 4", Georgia, serif;
+
+  --wrap: 1120px;        /* largeur max du contenu */
+}
+
+/* ---------- 2. Bases ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 1.125rem;     /* 18px : confortable à lire */
+  line-height: 1.65;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-title);
+  line-height: 1.1;
+  margin: 0 0 0.6em;
+}
+h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; }
+h3 { font-size: 1.3rem; font-weight: 600; }
+
+p { margin: 0 0 1em; }
+
+a { color: inherit; }
+
+/* Contour visible quand on navigue au clavier (accessibilité) */
+:focus-visible { outline: 3px solid var(--marker); outline-offset: 3px; }
+
+/* Conteneur centré, avec marge de 16px sur mobile */
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 16px; }
+.narrow { max-width: 760px; }
+
+/* Lien "aller au contenu", visible seulement au clavier */
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 16px; top: 16px; background: var(--marker); padding: 8px 12px; z-index: 10; }
+
+/* ---------- 3. Boutons et liens ---------- */
+.btn {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-title);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.85em 1.4em;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.btn:hover { background: #2E3A50; }
+.btn-small { font-size: 0.95rem; padding: 0.6em 1em; }
+.btn-light { background: var(--marker); color: var(--ink); }
+.btn-light:hover { background: #FFD24A; }
+
+.link {
+  font-family: var(--font-title);
+  font-weight: 600;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* ---------- 4. Barre du haut ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 5;
+  background: var(--paper);
+  border-bottom: 1px solid var(--paper-alt);
+}
+.topbar-inner { display: flex; align-items: center; gap: 24px; height: 68px; }
+.logo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-decoration: none;
+  margin-right: auto;      /* pousse le reste vers la droite */
+}
+.nav { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
+.nav a { font-family: var(--font-title); text-decoration: none; color: var(--muted); }
+.nav a:hover { color: var(--ink); }
+
+/* ---------- 5. Accroche (hero) ---------- */
+.hero { padding: 80px 0 96px; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;   /* texte plus large que le carnet */
+  gap: 56px;
+  align-items: center;
+}
+.hero h1 {
+  font-size: clamp(2.3rem, 5.5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.lead { font-size: 1.25rem; color: var(--muted); max-width: 34em; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 32px; }
+
+/* Le carnet : la pièce mémorable du site.
+   Chaque tâche est "surlignée" au jaune, comme sur une liste papier. */
+.notebook {
+  background: #FFFFFF;
+  border-left: 6px solid var(--ink);
+  padding: 28px 28px 20px;
+  transform: rotate(-1deg);           /* léger effet "posé sur le bureau" */
+}
+.notebook-title { font-family: var(--font-title); font-weight: 600; margin-bottom: 16px; }
+.notebook ul { list-style: none; margin: 0; padding: 0; }
+.notebook li {
+  padding: 10px 0 10px 34px;
+  border-bottom: 1px solid var(--paper-alt);
+  position: relative;
+}
+.notebook li:last-child { border-bottom: 0; }
+/* la case cochée */
+.notebook li::before {
+  content: "";
+  position: absolute; left: 0; top: 15px;
+  width: 18px; height: 18px;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  background: var(--marker);
+}
+
+/* ---------- 6. Sections ---------- */
+.section { padding: 88px 0; }
+.section-alt { background: var(--paper-alt); }
+.section-intro { color: var(--muted); max-width: 40em; margin-bottom: 40px; }
+
+/* Titre à gauche, texte à droite */
+.two-col { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; }
+.prose { max-width: 38em; }
+
+/* Services : liste sur 2 colonnes séparée par des traits */
+.services { display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; }
+.service { border-top: 2px solid var(--ink); padding: 24px 0 32px; }
+
+/* Méthode : étapes numérotées automatiquement par le CSS */
+.steps {
+  list-style: none; margin: 40px 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  counter-reset: step;
+}
+.steps li { counter-increment: step; }
+.steps li::before {
+  content: counter(step);
+  display: grid; place-items: center;
+  width: 44px; height: 44px;
+  margin-bottom: 16px;
+  background: var(--marker);
+  font-family: var(--font-title);
+  font-weight: 800;
+  border-radius: 50%;
+}
+.steps p { color: var(--muted); }
+
+/* Pour qui */
+.audiences { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 32px; }
+.audience h3 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.1em; }
+.audience .size { color: var(--sage); font-family: var(--font-title); }
+
+/* FAQ */
+details { border-bottom: 1px solid #C9D0D8; padding: 18px 0; }
+summary {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1.15rem;
+  cursor: pointer;
+}
+details p { margin: 12px 0 0; color: var(--muted); }
+
+/* Contact : fond sombre pour finir fort */
+.contact { background: var(--ink); color: var(--paper); text-align: left; }
+.contact p { color: #C9D0D8; }
+.contact-mail { margin-top: 16px; font-size: 0.95rem; }
+
+/* Pied de page */
+.footer { padding: 28px 0; font-size: 0.95rem; color: var(--muted); }
+.footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer p { margin: 0; }
+
+/* ---------- 7. Mobile et tablette ---------- */
+@media (max-width: 900px) {
+  .hero-grid, .two-col { grid-template-columns: 1fr; gap: 40px; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .audiences { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .nav { display: none; }             /* menu masqué, le bouton reste */
+  .services, .steps { grid-template-columns: 1fr; }
+  .hero { padding: 48px 0 64px; }
+  .section { padding: 64px 0; }
+  .notebook { transform: none; }
+}
+
+/* Respecte les personnes qui désactivent les animations */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+/* ---------- 8. Page mentions légales ---------- */
+.legal { padding: 64px 0; }
+.legal h2 { font-size: 1.4rem; margin-top: 2em; }
